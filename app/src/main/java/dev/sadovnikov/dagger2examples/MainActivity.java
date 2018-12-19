@@ -11,10 +11,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BattleComponent battleComponent = DaggerBattleComponent.create();
+        Cash cash = new Cash();
+        Soldiers soldiers = new Soldiers();
+        BattleComponent battleComponent = DaggerBattleComponent.builder().braavosModule(new BraavosModule(cash, soldiers)).build();
         War war = battleComponent.getWar();
         war.prepare();
         war.report();
+
+        battleComponent.getCash();
     }
 
 }
